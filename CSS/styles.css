@@ -1,0 +1,117 @@
+
+/* mobile first approach */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f6f8;
+  color: #20242a;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: white;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+main {
+  padding: 16px;
+  padding-bottom: 88px;
+}
+
+.search-section {
+  margin-bottom: 16px;
+}
+
+.search-section input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.calendar,
+.event-details {
+  min-width: 0;
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.calendar-header h2 {
+  font-size: 1.2rem;
+}
+
+.calendar-header nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.app-tabs {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  background: white;
+  border-top: 1px solid #ddd;
+}
+
+/* Tablet and desktop */
+@media (min-width: 768px) {
+  .header {
+    padding: 20px 32px;
+  }
+
+  main {
+    padding: 24px 32px;
+  }
+
+  .content-layout {
+    grid-template-columns: minmax(0, 2fr) minmax(250px, 1fr);
+  }
+
+  .app-tabs {
+    display: none;
+  }
+}

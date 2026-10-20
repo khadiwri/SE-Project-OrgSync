@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>OrgSync</title>
+  <link rel="stylesheet" href="CSS/styles.css">
+  <script src="JS/app.js" defer></script>
+</head>
+
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>OrgSync</h1>
+      <button type="button" aria-label="Notifications">
+        ☰ Notifications
+      </button>
+    </header>
+
+    <main>
+      <section class="search-section">
+        <input
+          type="search"
+          placeholder="Search events or organizations"
+          aria-label="Search events/orgs"
+        >
+      </section>
+
+      <div class="content-layout">
+        <section class="calendar" aria-label="Event calendar">
+          <div class="calendar-header">
+            <!-- will need to replace this placeholder header with changable months -->
+            <h2>October 2026</h2>
+            <nav>
+              <button class="view options" type="button">Day</button>
+              <button class="view options" type="button">Week</button>
+              <button class="view options" type="button">Month</button>
+            </nav>
+          </div>
+
+          <div class="calendar-grid">
+            <!-- Calendar cells will be added later -->
+          </div>
+        </section>
+
+        <aside class="event-details">
+          <h2>GS Engineering Symposium</h2>
+          <p>Engineering Symposium to showcase grad students works.</p>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="app-tabs">
+      <a href="#" class="tabs">Calendar</a>
+      <a href="#" class="tabs">Orgs</a>
+      <a href="#" class="tabs">Saved</a>
+    </footer>
+  </div>
+</body>
+</html>
