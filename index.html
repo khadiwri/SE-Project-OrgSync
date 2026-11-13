@@ -3,60 +3,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-  <title>OrgSync</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OrgSync Upcoming Events</title>
   <link rel="stylesheet" href="CSS/styles.css">
   <script src="JS/app.js" defer></script>
 </head>
-
 <body>
-  <div class="app">
-    <header class="header">
+  <main class="app">
+    <section class="panel">
       <h1>OrgSync</h1>
-      <button type="button" aria-label="Notifications">
-        ☰ Notifications
-      </button>
-    </header>
+      <p class="subtitle">Upcoming campus events</p>
 
-    <main>
-      <section class="search-section">
-        <input
-          type="search"
-          placeholder="Search events or organizations"
-          aria-label="Search events/orgs"
-        >
-      </section>
-
-      <div class="content-layout">
-        <section class="calendar" aria-label="Event calendar">
-          <div class="calendar-header">
-            <!-- will need to replace this placeholder header with changable months -->
-            <h2>October 2026</h2>
-            <nav>
-              <button class="view options" type="button">Day</button>
-              <button class="view options" type="button">Week</button>
-              <button class="view options" type="button">Month</button>
-            </nav>
-          </div>
-
-          <div class="calendar-grid">
-            <!-- Calendar cells will be added later -->
-          </div>
-        </section>
-
-        <aside class="event-details">
-          <h2>GS Engineering Symposium</h2>
-          <p>Engineering Symposium to showcase grad students works.</p>
-        </aside>
+      <div class="student-meta">
+        <strong id="student-name">Ava Martinez</strong>
+        <span id="student-major">Computer Science</span>
       </div>
-    </main>
 
-    <footer class="app-tabs">
-      <a href="#" class="tabs">Calendar</a>
-      <a href="#" class="tabs">Orgs</a>
-      <a href="#" class="tabs">Saved</a>
-    </footer>
-  </div>
+      <div class="button-row">
+        <button id="view-events-button" type="button">Upcoming Events</button>
+        <button id="empty-events-button" class="secondary" type="button">Show Empty State</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Sequence</h2>
+      <ol id="sequence-log" aria-live="polite"></ol>
+    </section>
+
+    <section class="panel">
+      <h2>Events</h2>
+      <ul id="event-list"></ul>
+    </section>
+  </main>
 </body>
 </html>
