@@ -15,73 +15,73 @@
       <nav>
       <h1>OrgSync</h1>
       </nav>
-
-      <section class="cal-summary">
-        <p class="subtitle">Upcoming Campus Events</p>
-        <dl>
-          <dt>[Org Name]</dt>
-          <dd>Event Title, Location - Description</dd>
-          <dt>[Org Name]</dt>
-          <dd>Event Title, Location - Description</dd>
-          <dt>[Org Name]</dt>
-          <dd>Event Title, Location - Description</dd>
-        </dl>
-      </section>
       
-    <main>
-
-      <nav class="app-tabs" aria-label="Main navigation">
-        <a href="#" class="tabs">Calendar</a>
-        <a href="#" class="tabs">Orgs</a>
-        <a href="#" class="tabs">Saved</a>
-      </nav>
-
-      <section class="search-section">
-        <input
-          type="search"
-          placeholder="Search events or organizations"
-          aria-label="Search events/orgs"
-        >
-      </section>
-
-      <div class="content-layout">
-
-        <section class="calendar" aria-label="Event calendar">
-
-          <div class="calendar-header">
-            <div class="calendar-navigation">
-              <button id="previous-month" type="button" aria-label="Previous month">
-                &lt;
-              </button>
-
-              <h2 id="calendar-month">December 2026</h2>
-
-              <button id="next-month" type="button" aria-label="Next month">
-                &gt;
-              </button>
-            </div>
-
-            <nav aria-label="Calendar view">
-              <button class="view options" type="button">Day</button>
-              <button class="view options" type="button">Week</button>
-              <button class="view options" type="button">Month</button>
-            </nav>
-          </div>
-
-          <div class="calendar-grid" id="calendar-grid">
-            <!-- Calendar dates will be generated from JavaScript -->
-          </div>
-
+      <main class="app-content">
+        <section class="search-section">
+          <input
+            type="search"
+            placeholder="Search events or organizations"
+            aria-label="Search events/orgs"
+          >
         </section>
 
-
-        <aside class="event-details" id="event-details">
-          <h2>Event Details</h2>
-          <p>Select an event to view its details.</p>
+        <aside class="app-tabs" aria-label="Main navigation">
+          <a href="#" class="tabs">Calendar</a>
+          <a href="#" class="tabs">Orgs</a>
+          <a href="#" class="tabs">Saved</a>
         </aside>
-      </div>
-    </main>
-  </div>
+
+        <aside class="cal-summary">
+          <p class="subtitle">Upcoming Campus Events</p>
+          <dl>
+            <dt>[Org Name]</dt>
+            <dd>Event Title, Location - Description</dd>
+            <dt>[Org Name]</dt>
+            <dd>Event Title, Location - Description</dd>
+            <dt>[Org Name]</dt>
+            <dd>Event Title, Location - Description</dd>
+          </dl>
+        </aside>
+
+        <div class="content-layout">
+
+          <section class="calendar" aria-label="Event calendar">
+
+            <div class="calendar-header">
+              <div class="calendar-navigation">
+                <button id="previous-month" type="button" aria-label="Previous month">
+                  &lt;
+                </button>
+
+                <!-- Write in dropdown option to select month -->
+                <h2 id="calendar-month">December 2026</h2>
+
+                <button id="next-month" type="button" aria-label="Next month">
+                  &gt;
+                </button>
+              </div>
+
+              <nav aria-label="Calendar view">
+                <button class="view options" type="button">Day</button>
+                <button class="view options" type="button">Week</button>
+                <button class="view options" type="button">Month</button>
+              </nav>
+            </div>
+
+            <div class="calendar-grid" id="calendar-grid">
+              <!-- Calendar dates will be generated from JavaScript -->
+            </div>
+
+          </section>
+          <!--<aside class="event-details" id="event-details">
+            <h2>Event Details</h2>
+            <p>Select an event to view its details.</p>
+          </aside>*/-->
+        </div>
+
+      </main>
+    </section>
+  </main>
 </body>
 
 </html>

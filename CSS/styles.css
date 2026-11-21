@@ -283,4 +283,8 @@ body {
   }
 }
 
-
+.app-content {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px;
+  gap: 24px;
+}
