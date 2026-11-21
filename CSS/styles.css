@@ -107,6 +107,13 @@ button.secondary {
   background: #f8fafc;
 }
 
+.cal-summary {
+  background: #ffffff;
+  border: 1px solid #192267;
+  border-radius: 16px;
+  padding: 20px;
+}
+
 /* Keep the OrgSync navigation visible on screen */
 html,
 body {
