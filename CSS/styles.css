@@ -3,10 +3,35 @@
 /*config for all parent elements/entire page*/
 html, body { margin: 0; min-height: 100%; }
 
+/* Chosen color scheme (mirrored GSU's site): */
+/* Blues: #0f1e37
+          #405781
+          #8194ac
+          #14294b
+          #2a466d
+          
+   Whites/Grays: 
+          #f8f8f8
+          #6c6c6c
+          #707b8c
+          #64696d
+          #f9f9f9
+          #bfcbcf
+          
+   Reds:  #f4eeef
+          #f3dcdc
+          #f2dede
+          #a94442*/
 body {
   font-family: Arial, sans-serif;
-  background: #f3f6fb;
-  color: #1f2937;
+  background: #f9f9f9;
+  color: #0f1e37;
+}
+
+h1 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: xx-large;
+  font-weight: 800;
 }
 
 button { font: inherit; cursor: pointer; }
@@ -55,12 +80,12 @@ search        { grid-area: search; }
   padding: 10px 12px;
   border-radius: 8px;
   text-decoration: none;
-  color: #173d2b;
+  color: #2a466d;   /* tab text color */
   font-weight: 500;
 }
 
 .app-tabs a:hover,
-.app-tabs a:focus-visible { background: #e4f3e8; }
+.app-tabs a:focus-visible { background: #bfcbcf; } /* tab hover color */
 
 .cal-upcoming {
   background: #fff;
@@ -97,7 +122,7 @@ search        { grid-area: search; }
   overflow: hidden;
 }
 
-.calendar-day:hover { background: #e4f3e8; }
+.calendar-day:hover { background: #bfcbcf; } /* day hover color */
 
 /* Dots instead of text on small screens */
 .calendar-event {
@@ -107,7 +132,7 @@ search        { grid-area: search; }
   margin: 2px 1px 0 0;
   padding: 0;
   border-radius: 50%;
-  background: #2f9e57;
+  background: #8194ac;
   font-size: 0;            /* hides the title */
 }
 
@@ -119,7 +144,7 @@ search        { grid-area: search; }
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background: #fff;
+  background: #405781;   /*back color for header*/
   border-bottom: 1px solid #dfe7f2;
 }
 
