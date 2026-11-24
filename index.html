@@ -7,6 +7,7 @@
   <title>OrgSync</title>
   <link rel="stylesheet" href="CSS/styles.css">
   <script src="JS/app.js" defer></script>
+  <script src="JS/dom_ui.js"></script>
 </head>
 
 <body>
@@ -24,16 +25,17 @@
           </svg>
         </button>
 
+        <!-- Change out the placement values with user name and id -->
         <div class="profile-card" id="profile-menu" hidden>
           <div class="profile-info">
             <p class="profile-name">Samantha Brown</p>
-            <p class="profile-role">Student</p>
+            <p class="profile-role">Student [ID: 923951673]</p>
           </div>
 
           <ul class="profile-links">
             <li><a href="#">Profile Settings</a></li>
             <li><a href="#">Saved Events</a></li>
-            <li><a href="#">Organizations</a></li>
+            <li><a href="#">Joined Organizations</a></li>
             <li><button type="button" id="logout">Logout</button></li>
           </ul>
         </div>
@@ -48,7 +50,7 @@
 
       <nav class="app-tabs" aria-label="Main navigation">
         <a href="#">Calendar</a>
-        <a href="#">Orgs</a>
+        <a href="#">Campus Organizations</a>
         <a href="#">Saved</a>
       </nav>
 
@@ -87,6 +89,16 @@
       </section>
     </main>
   </div>
+
+<!-- pop up UI when day is clicked -->
+  <dialog class="event-dialog" id="event-dialog" aria-labelledby="event-dialog-title">
+    <div class="event-dialog-header">
+      <h2 id="event-dialog-title">Events</h2>
+      <button class="dialog-close" type="button" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="event-dialog-body" id="event-dialog-body"></div>
+  </dialog>
 </body>
 
 </html>

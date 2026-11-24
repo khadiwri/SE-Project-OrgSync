@@ -194,6 +194,67 @@ search        { grid-area: search; }
 .profile-links button:hover,
 .profile-links button:focus-visible { background: #e4f3e8; }
 
+.event-dialog {
+  width: 100%;
+  max-width: none;
+  max-height: 80dvh;
+  margin: auto 0 0;                 /* bottom sheet on mobile */
+  padding: 0;
+  border: 0;
+  border-radius: 16px 16px 0 0;
+  background: #fff;
+  color: #1f2937;
+  box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.2);
+  overflow: auto;
+}
+
+.event-dialog::backdrop { background: rgba(15, 23, 42, 0.5); }
+
+body:has(dialog[open]) { overflow: hidden; }   /* stops page scroll behind it */
+
+.event-dialog-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.event-dialog-header h2 { margin: 0; font-size: 1.125rem; }
+
+.dialog-close {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #111827;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.event-dialog-body { display: grid; gap: 12px; padding: 16px; }
+
+.event-card {
+  padding: 14px;
+  border: 1px solid #dfe7f2;
+  border-left: 4px solid #2f9e57;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.event-card h3 { margin: 0 0 4px; font-size: 1rem; }
+.event-card .event-org { margin: 0 0 8px; color: #6b7280; font-size: 0.875rem; }
+.event-card dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; }
+.event-card dt { font-weight: 600; }
+.event-card dd { margin: 0; }
+.event-card .event-desc { margin: 8px 0 0; }
+
+.event-empty { margin: 0; color: #6b7280; font-style: italic; }
+
 /* ---- Tablet and Desktop configs ---- */
 @media (min-width: 768px) {
   .app-content {
@@ -233,4 +294,11 @@ search        { grid-area: search; }
   }
 
   .site-header { padding: 12px 24px; }
+
+  .event-dialog {
+    width: min(480px, calc(100% - 32px));
+    margin: auto;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.3);
+  }
 }
