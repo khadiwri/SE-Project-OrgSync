@@ -217,7 +217,7 @@ search        { grid-area: search; }
 .profile-links a:hover,
 .profile-links a:focus-visible,
 .profile-links button:hover,
-.profile-links button:focus-visible { background: #e4f3e8; }
+.profile-links button:focus-visible { background: #bfcbcf; }
 
 .profile-admin {
   margin: 4px 0;
