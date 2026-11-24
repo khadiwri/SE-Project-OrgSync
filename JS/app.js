@@ -293,3 +293,88 @@ function renderCalendar() {
         calendarGrid.appendChild(dateButton);
     }
 }
+
+// replace with actual "mock" data
+// keys are YYYY-MM-DD so a day cell can look itself up
+const events = {
+  '2026-12-05': [
+    {
+      title: 'Welcome Mixer',
+      org: 'Student Government',
+      time: '6:00 PM',
+      location: 'Student Center',
+      description: 'Meet fellow students and learn about campus orgs.'
+    }
+  ]
+};
+
+const dialog = document.getElementById('event-dialog');
+const dialogTitle = document.getElementById('event-dialog-title');
+const dialogBody = document.getElementById('event-dialog-body');
+
+function formatDate(isoDate) {
+  const [y, m, d] = isoDate.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+    weekday: 'long', month: 'long', day: 'numeric'
+  });
+}
+
+function buildEventCard(ev) {
+  const card = document.createElement('article');
+  card.className = 'event-card';
+
+  const title = document.createElement('h3');
+  title.textContent = ev.title;
+
+  const org = document.createElement('p');
+  org.className = 'event-org';
+  org.textContent = ev.org;
+
+  const details = document.createElement('dl');
+  [['Time', ev.time], ['Location', ev.location]].forEach(([label, value]) => {
+    const dt = document.createElement('dt');
+    dt.textContent = label;
+    const dd = document.createElement('dd');
+    dd.textContent = value;
+    details.append(dt, dd);
+  });
+
+  const desc = document.createElement('p');
+  desc.className = 'event-desc';
+  desc.textContent = ev.description;
+
+  card.append(title, org, details, desc);
+  return card;
+}
+
+function openEventDialog(isoDate) {
+  const dayEvents = events[isoDate] || [];
+
+  dialogTitle.textContent = formatDate(isoDate);
+  dialogBody.replaceChildren();
+
+  //check for event free days
+  if (dayEvents.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'event-empty';
+    empty.textContent = 'No events scheduled. Enjoy the day!';
+    dialogBody.append(empty);
+  } else {
+    dayEvents.forEach(ev => dialogBody.append(buildEventCard(ev)));
+  }
+
+  dialog.showModal();
+}
+
+// One listener on the grid handles every day, even after re-rendering months
+document.getElementById('calendar-grid').addEventListener('click', (e) => {
+  const day = e.target.closest('.calendar-day');
+  if (day && day.dataset.date) openEventDialog(day.dataset.date);
+});
+
+dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+
+//click outside the dialog's box to close it
+dialog.addEventListener('click', (e) => {
+  if (e.target === dialog) dialog.close();
+});
