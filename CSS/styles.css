@@ -39,7 +39,7 @@ search        { grid-area: search; }
 .cal-upcoming { grid-area: upcoming; }
 .app-tabs     { grid-area: tabs; }
 
-/* ---- Tabs: bottom bar on mobile ---- */
+/* ---- Tabs @ bottom on mobile ---- */
 .app-tabs {
   position: sticky;
   bottom: 0;
@@ -111,6 +111,89 @@ search        { grid-area: search; }
   font-size: 0;            /* hides the title */
 }
 
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #fff;
+  border-bottom: 1px solid #dfe7f2;
+}
+
+.site-header h1 { margin: 0; font-size: 1.25rem; }
+
+.profile { position: relative; }
+
+.profile-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #2563eb;
+}
+
+.profile-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #2563eb;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.profile-toggle:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+
+.profile-card {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(280px, calc(100vw - 24px));
+  background: #fff;
+  border: 1px solid #dfe7f2;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  overflow: hidden;
+}
+
+.profile-card[hidden] { display: none; }
+
+.profile-info {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-name { margin: 0; font-size: 1.125rem; font-weight: 700; }
+.profile-role { margin: 2px 0 0; color: #6b7280; }
+
+.profile-links { list-style: none; margin: 0; padding: 8px; }
+
+.profile-links a,
+.profile-links button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: #1f2937;
+  font: inherit;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile-links a:hover,
+.profile-links a:focus-visible,
+.profile-links button:hover,
+.profile-links button:focus-visible { background: #e4f3e8; }
+
 /* ---- Tablet and Desktop configs ---- */
 @media (min-width: 768px) {
   .app-content {
@@ -148,4 +231,6 @@ search        { grid-area: search; }
     color: #14532d;
     font-size: 11px;
   }
+
+  .site-header { padding: 12px 24px; }
 }

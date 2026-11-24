@@ -312,6 +312,32 @@ document.addEventListener("DOMContentLoaded", async () => {
         ".app-tabs a:nth-child(1)"
     );
 
+    /* Profile Card */
+    const profileToggle = document.querySelector('.profile-toggle');
+    const profileCard = document.getElementById('profile-menu');
+
+    function setProfileMenu(open) {
+    profileToggle.setAttribute('aria-expanded', String(open));
+    profileCard.hidden = !open;
+    }
+
+    profileToggle.addEventListener('click', () => {
+    setProfileMenu(profileToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    //close when clicking elsewhere
+    document.addEventListener('click', (e) => {
+    if (!e.target.closest('.profile')) setProfileMenu(false);
+    });
+
+    //close using Escape and return focus to the toggle
+    document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !profileCard.hidden) {
+        setProfileMenu(false);
+        profileToggle.focus();
+    }
+    });
+
     // Prevent older searches from overwriting newer results
     let latestSearch = 0;
 

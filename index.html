@@ -11,8 +11,33 @@
 
 <body>
   <div class="app">
-    <header>
+    <header class="site-header">
       <h1>OrgSync</h1>
+
+      <div class="profile">
+        <button class="profile-toggle" type="button"
+                aria-expanded="false" aria-controls="profile-menu"
+                aria-label="Account menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
+          </svg>
+        </button>
+
+        <div class="profile-card" id="profile-menu" hidden>
+          <div class="profile-info">
+            <p class="profile-name">Samantha Brown</p>
+            <p class="profile-role">Student</p>
+          </div>
+
+          <ul class="profile-links">
+            <li><a href="#">Profile Settings</a></li>
+            <li><a href="#">Saved Events</a></li>
+            <li><a href="#">Organizations</a></li>
+            <li><button type="button" id="logout">Logout</button></li>
+          </ul>
+        </div>
+      </div>
     </header>
 
     <main class="app-content">
@@ -29,6 +54,9 @@
 
       <aside class="cal-upcoming">
         <h2 class="subtitle">Upcoming Campus Events</h2>
+        <!-- Events listed here will be added from the present week. -->
+         <!-- Thinking we should have a list that sends for events coming
+              in the next 7 and less days and show that list here like so. -->
         <dl>
           <dt>[Org Name]</dt>
           <dd>Event Title, Location - Description</dd>
