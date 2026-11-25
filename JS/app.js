@@ -5,27 +5,27 @@ const DEMO_STUDENT_ID = "demo-student-001";
 
 // Retrieve upcoming events from the OrgSync backend
 async function getEvents(organizationName = "") {
-    try {
-        const url = new URL(API_URL);
+    const url = new URL(API_URL);
 
-        if (organizationName) {
-            url.searchParams.set("organization", organizationName);
-        }
-
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const events = await response.json();
-        console.log("Events retrieved successfully:", events);
-
-        return events;
-    } catch (error) {
-        console.error("Error retrieving events:", error);
-        return [];
+    if (organizationName) {
+        url.searchParams.set("organization", organizationName);
     }
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const events = await response.json();
+
+    if (!Array.isArray(events)) {
+        throw new Error("Invalid response format: Expected an array of events.");
+    }
+
+    console.log("Events retrieved successfully:", events);
+
+    return events;
 }
 
 // Retrieve registrations for the demo student
@@ -77,7 +77,8 @@ function displayEventDetails(event) {
     // Register for the selected event
     const registerButton = document.createElement("button");
     registerButton.type = "button";
-    registerButton.textContent = "Register for Event";
+    registerButton.textContent = "Checking registration status...";
+    registerButton.disabled = true;
 
     const feedback = document.createElement("p");
     feedback.setAttribute("role", "status");
@@ -96,10 +97,17 @@ function displayEventDetails(event) {
                 registerButton.textContent = "Registered";
                 registerButton.disabled = true;
                 feedback.textContent = "You are already registered for this event.";
+            } else {
+                registerButton.textContent = "Register for Event";
+                registerButton.disabled = false;
+                feedback.textContent = "";
             }
         })
         .catch(error => {
             console.error("Unable to check registration status:", error);
+            feedback.textContent = "Unable to verify registration status. You may still attempt registration.";
+            registerButton.textContent = "Register for Event";
+            registerButton.disabled = false;
         });
 
     registerButton.addEventListener("click", async () => {
@@ -296,13 +304,76 @@ function renderCalendar() {
 
 
 
+class EventsPage {
+    constructor() {
+        this.latestSearch = 0;
+        this.detailsSection = document.getElementById("event-details");
+    }
+
+    async viewUpcomingEvents(organizationName = "") {
+        const searchNumber = ++this.latestSearch;
+
+        try {
+            const events = await getEvents(organizationName);
+
+            if (searchNumber !== this.latestSearch) {
+                return;
+            }
+
+            if (events.length > 0) {
+                this.displayEvents(events);
+            } else {
+                this.displayEmptyState();
+            }
+        } catch (error) {
+            console.error("Error loading events:", error);
+
+            if (searchNumber !== this.latestSearch) {
+                return;
+            }
+
+            this.displayErrorState();
+        }
+    }
+
+    displayEvents(events) {
+        calendarEvents = events;
+        renderCalendar();
+        displayEventDetails(events[0]);
+    }
+
+    displayEmptyState() {
+        calendarEvents = [];
+        renderCalendar();
+
+        this.detailsSection.replaceChildren();
+        const message = document.createElement("p");
+        message.textContent = "No upcoming events found.";
+        this.detailsSection.appendChild(message);
+    }
+
+    displayErrorState() {
+        calendarEvents = [];
+        renderCalendar();
+
+        this.detailsSection.replaceChildren();
+        const message = document.createElement("p");
+        message.textContent = "Unable to load events. Please try again.";
+        this.detailsSection.appendChild(message);
+    }
+
+    invalidatePendingSearches() {
+        this.latestSearch++;
+    }
+}
+
 // Initialize the frontend
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+    const eventsPage = new EventsPage();
+
     const searchInput = document.querySelector(
         '.search-section input[type="search"]'
     );
-
-    const detailsSection = document.getElementById("event-details");
 
     const savedTab = document.querySelector(
         ".app-tabs a:nth-child(3)"
@@ -312,33 +383,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         ".app-tabs a:nth-child(1)"
     );
 
-    // Prevent older searches from overwriting newer results
-    let latestSearch = 0;
-
-    async function loadEvents(organizationName = "") {
-        const searchNumber = ++latestSearch;
-        const events = await getEvents(organizationName);
-        calendarEvents = events;
-        renderCalendar();
-
-        if (searchNumber !== latestSearch) {
-            return;
-        }
-
-        if (events.length > 0) {
-            displayEventDetails(events[0]);
-        } else {
-            detailsSection.replaceChildren();
-
-            const message = document.createElement("p");
-            message.textContent = "No upcoming events found.";
-
-            detailsSection.appendChild(message);
-        }
-    }
-
     // Load upcoming events when the page opens
-    await loadEvents();
+    eventsPage.viewUpcomingEvents();
 
     const previousMonthButton = document.getElementById("previous-month");
     const nextMonthButton = document.getElementById("next-month");
@@ -357,11 +403,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-
     // Search by organization name
     if (searchInput) {
         searchInput.addEventListener("input", () => {
-            loadEvents(searchInput.value.trim());
+            eventsPage.viewUpcomingEvents(searchInput.value.trim());
         });
     }
 
@@ -371,7 +416,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             event.preventDefault();
 
             // Invalidate pending searches
-            latestSearch++;
+            eventsPage.invalidatePendingSearches();
 
             await displaySavedEvents();
         });
@@ -382,7 +427,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         calendarTab.addEventListener("click", (event) => {
             event.preventDefault();
 
-            loadEvents(searchInput ? searchInput.value.trim() : "");
+            eventsPage.viewUpcomingEvents(searchInput ? searchInput.value.trim() : "");
         });
     }
 });
