@@ -386,21 +386,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load upcoming events when the page opens
     eventsPage.viewUpcomingEvents();
 
-  const title = document.createElement('h3');
-  title.textContent = ev.title;
+    const previousMonthButton = document.getElementById("previous-month");
+    const nextMonthButton = document.getElementById("next-month");
 
-  const org = document.createElement('p');
-  org.className = 'event-org';
-  org.textContent = ev.org;
+    if (previousMonthButton) {
+        previousMonthButton.addEventListener("click", () => {
+            displayedMonth.setMonth(displayedMonth.getMonth() - 1);
+            renderCalendar();
+        });
+    }
 
-  const details = document.createElement('dl');
-  [['Time', ev.time], ['Location', ev.location]].forEach(([label, value]) => {
-    const dt = document.createElement('dt');
-    dt.textContent = label;
-    const dd = document.createElement('dd');
-    dd.textContent = value;
-    details.append(dt, dd);
-  });
+    if (nextMonthButton) {
+        nextMonthButton.addEventListener("click", () => {
+            displayedMonth.setMonth(displayedMonth.getMonth() + 1);
+            renderCalendar();
+        });
+    }
 
     // Search by organization name
     if (searchInput) {
@@ -409,33 +410,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-function openEventDialog(isoDate) {
-  const dayEvents = events[isoDate] || [];
+    // Display registered events when Saved is clicked
+    if (savedTab) {
+        savedTab.addEventListener("click", async (event) => {
+            event.preventDefault();
 
             // Invalidate pending searches
             eventsPage.invalidatePendingSearches();
 
-  //check for event free days
-  if (dayEvents.length === 0) {
-    const empty = document.createElement('p');
-    empty.className = 'event-empty';
-    empty.textContent = 'No events scheduled. Enjoy the day!';
-    dialogBody.append(empty);
-  } else {
-    dayEvents.forEach(ev => dialogBody.append(buildEventCard(ev)));
-  }
+            await displaySavedEvents();
+        });
+    }
 
-  dialog.showModal();
-}
+    // Return to upcoming events when calendar is clicked
+    if (calendarTab) {
+        calendarTab.addEventListener("click", (event) => {
+            event.preventDefault();
 
             eventsPage.viewUpcomingEvents(searchInput ? searchInput.value.trim() : "");
         });
     }
-});
-
-dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
-
-//click outside the dialog's box to close it
-dialog.addEventListener('click', (e) => {
-  if (e.target === dialog) dialog.close();
 });
