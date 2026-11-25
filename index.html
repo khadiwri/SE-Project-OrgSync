@@ -1,76 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OrgSync</title>
   <link rel="stylesheet" href="CSS/styles.css">
   <script src="JS/app.js" defer></script>
+  <script src="JS/dom_ui.js"></script>
+  <script src="JS/admin.js"></script>
 </head>
 
 <body>
   <div class="app">
-    <header class="header">
+    <header class="site-header">
       <h1>OrgSync</h1>
-      <button type="button" aria-label="Notifications">
-        ☰ Notifications
-      </button>
+
+      <div class="profile">
+        <button class="profile-toggle" type="button"
+                aria-expanded="false" aria-controls="profile-menu"
+                aria-label="Account menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
+          </svg>
+        </button>
+
+        <!-- Change out the placement values with user name and id -->
+        <div class="profile-card" id="profile-menu" hidden>
+          <div class="profile-info">
+            <p class="profile-name">Samantha Brown</p>
+            <p class="profile-role">Student [ID: 923951673]</p>
+          </div>
+
+          <ul class="profile-links">
+            <li><a href="#">Profile Settings</a></li>
+            <li><a href="#">Saved Events</a></li>
+            <li><a href="#">Joined Organizations</a></li>
+            <li class="profile-admin" id="profile-admin" hidden>
+              <p class="profile-links-label">Admin</p>
+              <ul id="profile-admin-links"></ul>
+            </li>
+            <li><button type="button" id="logout">Logout</button></li>
+          </ul>
+        </div>
+      </div>
     </header>
 
-    <main>
+    <main class="app-content">
+      <search>
+        <input type="search" placeholder="Search events or organizations"
+               aria-label="Search events or organizations">
+      </search>
 
       <nav class="app-tabs" aria-label="Main navigation">
-        <a href="#" class="tabs">Calendar</a>
-        <a href="#" class="tabs">Orgs</a>
-        <a href="#" class="tabs">Saved</a>
+        <a href="#">Calendar</a>
+        <a href="#">Campus Organizations</a>
+        <a href="#">Saved</a>
       </nav>
 
-      <section class="search-section">
-        <input
-          type="search"
-          placeholder="Search events or organizations"
-          aria-label="Search events/orgs"
-        >
+      <aside class="cal-upcoming">
+        <h2 class="subtitle">Upcoming Campus Events</h2>
+        <!-- Events listed here will be added for the present week. -->
+         <!-- Thinking we should have a list that sends for events coming
+              in the next 7 and less days and show that list here like so. -->
+        <!-- Saved events for the user could be shown here. What do you guys think?
+            List general upcoming events or events relevant only to the user that is logged in? -->
+        <dl>
+          <dt>[Org Name]</dt>
+          <dd>Event Title, Location - Description</dd>
+          <dt>[Org Name]</dt>
+          <dd>Event Title, Location - Description</dd>
+          <dt>[Org Name]</dt>
+          <dd>Event Title, Location - Description</dd>
+          <!-- ... -->
+        </dl>
+      </aside>
+
+      <section class="calendar" aria-label="Event calendar">
+        <div class="calendar-header">
+          <div class="calendar-navigation">
+            <button id="previous-month" type="button" aria-label="Previous month">&lt;</button>
+            <h2 id="calendar-month">December 2026</h2>
+            <button id="next-month" type="button" aria-label="Next month">&gt;</button>
+          </div>
+
+          <div class="calendar-views" role="group" aria-label="Calendar view">
+            <button type="button">Day</button>
+            <button type="button">Week</button>
+            <button type="button">Month</button>
+          </div>
+        </div>
+
+        <div class="calendar-grid" id="calendar-grid"></div>
       </section>
-
-      <div class="content-layout">
-
-        <section class="calendar" aria-label="Event calendar">
-
-          <div class="calendar-header">
-            <div class="calendar-navigation">
-              <button id="previous-month" type="button" aria-label="Previous month">
-                &lt;
-              </button>
-
-              <h2 id="calendar-month">December 2026</h2>
-
-              <button id="next-month" type="button" aria-label="Next month">
-                &gt;
-              </button>
-            </div>
-
-            <nav aria-label="Calendar view">
-              <button class="view options" type="button">Day</button>
-              <button class="view options" type="button">Week</button>
-              <button class="view options" type="button">Month</button>
-            </nav>
-          </div>
-
-          <div class="calendar-grid" id="calendar-grid">
-            <!-- Calendar dates will be generated from JavaScript -->
-          </div>
-
-        </section>
-
-
-        <aside class="event-details" id="event-details">
-          <h2>Event Details</h2>
-          <p>Select an event to view its details.</p>
-        </aside>
-      </div>
     </main>
   </div>
+
+<!-- pop up UI when day is clicked -->
+  <dialog class="event-dialog" id="event-dialog" aria-labelledby="event-dialog-title">
+    <div class="event-dialog-header">
+      <h2 id="event-dialog-title">Events</h2>
+      <button class="dialog-close" type="button" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="event-dialog-body" id="event-dialog-body"></div>
+  </dialog>
 </body>
+
 </html>
